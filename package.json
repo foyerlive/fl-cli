@@ -1,0 +1,20 @@
+{
+  "name": "fl-cli",
+  "version": "1.0.0",
+  "description": "FoyerLive CLI",
+  "main": "bin/cli.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/foyerlive/fl-cli.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/foyerlive/fl-cli/issues"
+  },
+  "homepage": "https://github.com/foyerlive/fl-cli#readme",
+  "bin": "./bin/cli.js"
+}
