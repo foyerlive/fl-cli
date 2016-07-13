@@ -2,7 +2,6 @@
   "name": "fl-cli",
   "version": "1.0.0",
   "description": "FoyerLive CLI",
-  "main": "bin/cli.js",
   "scripts": {
     "install": "npm run build:clean && npm run build",
     "build:clean": "rimraf bin",
