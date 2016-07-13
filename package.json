@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "FoyerLive CLI",
   "scripts": {
-    "install": "npm run build:clean && npm run build",
+    "install": "npm run build:clean && npm run build:lib && npm run build:bin",
     "build:clean": "rimraf bin",
-    "build": "NODE_ENV=production babel src --out-dir bin"
+    "build:lib": "NODE_ENV=production babel src/lib --out-dir lib",
+    "build:bin": "NODE_ENV=production babel src/bin --out-dir bin"
   },
   "repository": {
     "type": "git",
