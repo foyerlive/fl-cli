@@ -1,0 +1,160 @@
+#!/usr/bin/env babel-node
+'use strict';
+
+var publish = function () {
+  var ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(env) {
+    var authResult, file, packageContents, packageObject, fileContents, form, headers, host;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            console.log('Publishing Time: ' + env);
+            console.log('Checking authentication...');
+            _context.next = 4;
+            return (0, _auth.getAuth)(env).catch(function (err) {
+              console.log('Caught an error', err);
+              return false;
+            });
+
+          case 4:
+            authResult = _context.sent;
+
+            if (authResult) {
+              _context.next = 7;
+              break;
+            }
+
+            throw 'No auth available...';
+
+          case 7:
+
+            console.log('Using token: ' + authResult);
+            file = getNewestFile('./dist/', new RegExp('.*\.js$'));
+
+            console.log('Deploying file: ' + file);
+
+            packageContents = fs.readFileSync('./package.json', 'utf8');
+            packageObject = JSON.parse(packageContents);
+            fileContents = fs.readFileSync(file, 'utf8');
+            form = new FormData();
+
+            form.append('app', packageObject.name);
+            form.append('file', fileContents);
+            form.append('filename', file.substring(7));
+
+            headers = {
+              'Accept': 'application/json',
+              'Content-Type': form.getHeaders()['content-type'],
+              'Authorization': authResult
+            };
+            host = void 0;
+            _context.t0 = env;
+            _context.next = _context.t0 === 'local' ? 22 : _context.t0 === 'test' ? 24 : 26;
+            break;
+
+          case 22:
+            host = 'http://internal.foyerlive.com:9030/api/app/publish';
+            return _context.abrupt('break', 28);
+
+          case 24:
+            host = 'https://staging.foyerlive.com/api/app/publish';
+            return _context.abrupt('break', 28);
+
+          case 26:
+            host = 'https://api.foyerlive.com/api/app/publish';
+            return _context.abrupt('break', 28);
+
+          case 28:
+            (0, _nodeFetch2.default)(host, {
+              method: 'POST',
+              headers: headers,
+              body: form
+            }).then(function (response) {
+              return response.json();
+            }).then(function (data) {
+              console.log('Response', data);
+            }).catch(function (err) {
+              console.error('An error has occurred', err);
+            });
+
+          case 29:
+          case 'end':
+            return _context.stop();
+        }
+      }
+    }, _callee, this);
+  }));
+
+  return function publish(_x) {
+    return ref.apply(this, arguments);
+  };
+}();
+
+var _nodeFetch = require('node-fetch');
+
+var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
+
+var _auth = require('../lib/auth');
+
+var _commander = require('commander');
+
+var _commander2 = _interopRequireDefault(_commander);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { return step("next", value); }, function (err) { return step("throw", err); }); } } return step("next"); }); }; }
+
+require('es6-promise').polyfill();
+
+
+var FormData = require('form-data');
+var fs = require('fs');
+
+var exec = require('child_process').execSync;
+var execFile = require('child_process').execFileSync;
+
+_commander2.default.version('0.0.1').option('-s, --start', 'Start developer environment').option('-b, --build', 'Build for production environment').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble').parse(process.argv);
+
+console.log('FoyerLive CLI: ' + _commander2.default.version());
+if (_commander2.default.start) {
+  // Run the development environment
+  execFile('./node_modules/fl-cli/lib/devServer.js', [], {
+    stdio: 'inherit'
+  });
+}
+if (_commander2.default.build) {
+  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
+    stdio: 'inherit'
+  });
+
+  exec('NODE_ENV=prod ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
+    stdio: 'inherit'
+  });
+}
+if (_commander2.default.publish) {
+  publish(_commander2.default.env).catch(function (err) {
+    console.error(err);
+  });
+}
+
+function getNewestFile(dir, regexp) {
+  var newest = null;
+  var files = fs.readdirSync(dir);
+  var one_matched = 0;
+
+  for (var i = 0; i < files.length; i++) {
+
+    if (regexp.test(files[i]) == false) continue;else if (one_matched == 0) {
+      newest = files[i];
+      one_matched = 1;
+      continue;
+    }
+
+    f1_time = fs.statSync(files[i]).mtime.getTime();
+    f2_time = fs.statSync(newest).mtime.getTime();
+    if (f1_time > f2_time) newest[i] = files[i];
+  }
+
+  if (newest != null) return dir + newest;
+  return null;
+}
