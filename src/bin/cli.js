@@ -34,7 +34,7 @@ if (program.build) {
     stdio: 'inherit'
   });
 
-  exec('NODE_ENV=prod ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
+  exec('NODE_ENV=production ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
     stdio: 'inherit'
   });
 }
