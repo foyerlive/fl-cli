@@ -19,14 +19,18 @@ program
   .option('-b, --build', 'Build for production environment')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
-  .option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
+  .option('-p, --port [port]', 'Override the development server port', 9081)
   .parse(process.argv);
 
 console.log('FoyerLive CLI: ' + program.version());
 if (program.start) {
   // Run the development environment
+  if( program.port !== 9081 )
+    process.env.FLDEVPORT = program.port;
+
   execFile('./node_modules/fl-cli/lib/devServer.js', [], {
-    stdio: 'inherit'
+    stdio: 'inherit',
+    env: process.env
   });
 }
 if (program.build) {

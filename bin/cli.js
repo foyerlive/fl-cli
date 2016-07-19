@@ -113,21 +113,28 @@ var fs = require('fs');
 var exec = require('child_process').execSync;
 var execFile = require('child_process').execFileSync;
 
-_commander2.default.version('0.0.1').option('-s, --start', 'Start developer environment').option('-b, --build', 'Build for production environment').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble').parse(process.argv);
+_commander2.default.version('0.0.1').option('-s, --start', 'Start developer environment').option('-b, --build', 'Build for production environment').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port', 9081).parse(process.argv);
 
 console.log('FoyerLive CLI: ' + _commander2.default.version());
 if (_commander2.default.start) {
   // Run the development environment
-  execFile('./node_modules/fl-cli/lib/devServer.js', [], {
-    stdio: 'inherit'
+  if (_commander2.default.port != 9081) process.env.FLDEVPORT = _commander2.default.port;
+
+  execFile('./lib/devServer.js', [], {
+    stdio: 'inherit',
+    env: process.env
   });
+  // execFile('./node_modules/fl-cli/lib/devServer.js', [], {
+  //   stdio: 'inherit',
+  //   FLDEVPORT: program.port
+  // });
 }
 if (_commander2.default.build) {
   exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
     stdio: 'inherit'
   });
 
-  exec('NODE_ENV=prod ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
+  exec('NODE_ENV=production ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
     stdio: 'inherit'
   });
 }
