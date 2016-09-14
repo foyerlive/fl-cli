@@ -14,8 +14,9 @@ import program from 'commander';
 
 
 program
-  .version('0.0.1')
+  .version('1.0.2')
   .option('-s, --start', 'Start developer environment')
+  .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
@@ -28,9 +29,15 @@ if (program.start) {
   if( program.port !== 9081 )
     process.env.FLDEVPORT = program.port;
 
+  var env = process.env;
+
+  // Let theme mode pass a environment variable to the webpack config...
+  if( program.theme )
+    env = {...env,foyerEntryName:'theme'};
+
   execFile('./node_modules/fl-cli/lib/devServer.js', [], {
     stdio: 'inherit',
-    env: process.env
+    env: env
   });
 }
 if (program.build) {
@@ -98,8 +105,17 @@ async function publish( env ) {
     body: form
   }).then((response) => {
     return response.json();
-  }).then((data) => {
-    console.log('Response', data);
+  }).then((json) => {
+    if( json.success )
+    {
+      console.log( 'Success!' );
+      if( json.hasOwnProperty( 'message') )
+        console.log( json.message );
+      if( json.hasOwnProperty( 'data') && json.data.hasOwnProperty('message'))
+        console.log( json.data.message );
+    } else {
+      console.log( 'Error!', json.data.error );
+    }
   }).catch((err) => {
     console.error('An error has occurred', err);
   });

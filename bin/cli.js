@@ -71,8 +71,14 @@ var publish = function () {
               body: form
             }).then(function (response) {
               return response.json();
-            }).then(function (data) {
-              console.log('Response', data);
+            }).then(function (json) {
+              if (json.success) {
+                console.log('Success!');
+                if (json.hasOwnProperty('message')) console.log(json.message);
+                if (json.hasOwnProperty('data') && json.data.hasOwnProperty('message')) console.log(json.data.message);
+              } else {
+                console.log('Error!', json.data.error);
+              }
             }).catch(function (err) {
               console.error('An error has occurred', err);
             });
@@ -118,16 +124,12 @@ _commander2.default.version('0.0.1').option('-s, --start', 'Start developer envi
 console.log('FoyerLive CLI: ' + _commander2.default.version());
 if (_commander2.default.start) {
   // Run the development environment
-  if (_commander2.default.port != 9081) process.env.FLDEVPORT = _commander2.default.port;
+  if (_commander2.default.port !== 9081) process.env.FLDEVPORT = _commander2.default.port;
 
-  execFile('./lib/devServer.js', [], {
+  execFile('./node_modules/fl-cli/lib/devServer.js', [], {
     stdio: 'inherit',
     env: process.env
   });
-  // execFile('./node_modules/fl-cli/lib/devServer.js', [], {
-  //   stdio: 'inherit',
-  //   FLDEVPORT: program.port
-  // });
 }
 if (_commander2.default.build) {
   exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
