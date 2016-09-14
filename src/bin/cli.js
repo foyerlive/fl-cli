@@ -33,7 +33,10 @@ if (program.start) {
 
   // Let theme mode pass a environment variable to the webpack config...
   if( program.theme )
-    env = {...env,foyerEntryName:'theme'};
+    env = {...env,foyerThemeMode:true};
+
+  if( program.port )
+    env = {...env,foyerDevelopmentPort:program.port};
 
   execFile('./node_modules/fl-cli/lib/devServer.js', [], {
     stdio: 'inherit',
