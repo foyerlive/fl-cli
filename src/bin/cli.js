@@ -24,20 +24,20 @@ program
   .parse(process.argv);
 
 console.log('FoyerLive CLI: ' + program.version());
+
+// Port shift...
+if( program.port !== 9081 )
+  process.env.FLDEVPORT = program.port;
+
+// Get environment
+let env = process.env;
+
+// Let theme mode pass a environment variable to the webpack config...
+if( program.theme )
+  env = {...env,foyerThemeMode:true};
+
+// Run the development environment
 if (program.start) {
-  // Run the development environment
-  if( program.port !== 9081 )
-    process.env.FLDEVPORT = program.port;
-
-  var env = process.env;
-
-  // Let theme mode pass a environment variable to the webpack config...
-  if( program.theme )
-    env = {...env,foyerThemeMode:true};
-
-  if( program.port )
-    env = {...env,foyerDevelopmentPort:program.port};
-
   execFile('./node_modules/fl-cli/lib/devServer.js', [], {
     stdio: 'inherit',
     env: env
@@ -49,7 +49,8 @@ if (program.build) {
   });
 
   exec('NODE_ENV=production ./node_modules/.bin/webpack --config ./node_modules/fl-cli/lib/config/webpack.config.prod.js', {
-    stdio: 'inherit'
+    stdio: 'inherit',
+    env: env
   });
 }
 if (program.publish) {
