@@ -26,15 +26,15 @@ program
 console.log('FoyerLive CLI: ' + program.version());
 
 // Port shift...
-if( program.port !== 9081 )
+if (program.port !== 9081)
   process.env.FLDEVPORT = program.port;
 
 // Get environment
 let env = process.env;
 
 // Let theme mode pass a environment variable to the webpack config...
-if( program.theme )
-  env = {...env,foyerThemeMode:true,foyerDevelopmentPort:9082};
+if (program.theme)
+  env = {...env, foyerThemeMode: true, foyerDevelopmentPort: 9082};
 
 // Run the development environment
 if (program.start) {
@@ -54,25 +54,25 @@ if (program.build) {
   });
 }
 if (program.publish) {
-  publish( program.env ).catch( (err) => {
-    console.error( err );
+  publish(program.env).catch((err) => {
+    console.error(err);
   });
 }
 
-async function publish( env ) {
-  console.log( 'Publishing Time: ' + env );
-  console.log( 'Checking authentication...' );
-  let authResult = await getAuth( env ).catch((err) => {
-    console.log( 'Caught an error', err );
+const publish = async(env) => {
+  console.log('Publishing Time: ' + env);
+  console.log('Checking authentication...');
+  let authResult = await getAuth(env).catch((err) => {
+    console.log('Caught an error', err);
     return false;
   });
 
-  if( !authResult )
+  if (!authResult)
     throw 'No auth available...';
 
-  console.log( 'Using token: ' + authResult );
+  console.log('Using token: ' + authResult);
   var file = getNewestFile('./dist/', new RegExp('.*\.js$'));
-  console.log( 'Deploying file: ' + file );
+  console.log('Deploying file: ' + file);
 
   var packageContents = fs.readFileSync('./package.json', 'utf8');
   var packageObject = JSON.parse(packageContents);
@@ -90,8 +90,7 @@ async function publish( env ) {
   };
 
   let host;
-  switch( env )
-  {
+  switch (env) {
     case 'local':
       host = 'http://internal.foyerlive.com:9030/api/app/publish';
       break;
@@ -110,24 +109,23 @@ async function publish( env ) {
   }).then((response) => {
     return response.json();
   }).then((json) => {
-    if( json.success )
-    {
-      console.log( 'Success!' );
-      if( json.hasOwnProperty( 'message') )
-        console.log( json.message );
-      if( json.hasOwnProperty( 'data') && json.data.hasOwnProperty('message'))
-        console.log( json.data.message );
+    if (json.success) {
+      console.log('Success!');
+      if (json.hasOwnProperty('message'))
+        console.log(json.message);
+      if (json.hasOwnProperty('data') && json.data.hasOwnProperty('message'))
+        console.log(json.data.message);
     } else {
-      console.log( 'Error!', json.data.error );
+      console.log('Error!', json);
     }
   }).catch((err) => {
     console.error('An error has occurred', err);
   });
 
-}
+};
 
 
-function getNewestFile(dir, regexp) {
+const getNewestFile = (dir, regexp) => {
   let newest = null;
   let files = fs.readdirSync(dir)
   let one_matched = 0;
@@ -151,4 +149,4 @@ function getNewestFile(dir, regexp) {
   if (newest != null)
     return (dir + newest);
   return null
-}
+};
