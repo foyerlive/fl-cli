@@ -3,25 +3,24 @@ import fs from 'fs';
 import prompt from 'cli-prompt';
 
 
-export async function getAuth( env = '' ) {
+export const getAuth = async(env = '') => {
   let fileRef = './.auth' + ( env ? '.' + env : '' );
   try {
-    console.log( 'Stored Token Check: ' + fileRef );
+    console.log('Stored Token Check: ' + fileRef);
     let authResult = fs.readFileSync(fileRef, 'utf8');
     return authResult;
   } catch (err) {
     let promptResult = await requestAuth();
-    let authRequest = await sendAuth(promptResult,env);
-    if( authRequest )
-    {
+    let authRequest = await sendAuth(promptResult, env);
+    if (authRequest) {
       // Store that result...
-      fs.writeFileSync(fileRef, authRequest );
+      fs.writeFileSync(fileRef, authRequest);
     }
     return authRequest;
   }
-}
+};
 
-async function requestAuth() {
+const requestAuth = async() => {
   return new Promise((resolve, reject) => {
     prompt.multi([
       {
@@ -43,12 +42,11 @@ async function requestAuth() {
       return reject(err);
     });
   });
-}
+};
 
-async function sendAuth(prompt,env = '') {
+const sendAuth = async(prompt, env = '') => {
   let host;
-  switch( env )
-  {
+  switch (env) {
     case 'local':
       host = 'http://internal.foyerlive.com:9030/api/auth';
       break;
@@ -71,8 +69,7 @@ async function sendAuth(prompt,env = '') {
       throw json.error;
     return json.data.key;
   }).catch((err) => {
-    console.error( err );
+    console.error(err);
     return false;
   });
-
-}
+};

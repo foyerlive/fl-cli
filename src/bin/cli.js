@@ -1,5 +1,4 @@
 #!/usr/bin/env babel-node
-require('es6-promise').polyfill();
 import fetch from 'node-fetch';
 
 var FormData = require('form-data');
