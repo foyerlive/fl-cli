@@ -1,9 +1,5 @@
 #!/usr/bin/env babel-node
 require('es6-promise').polyfill();
-import fetch from 'node-fetch';
-
-var FormData = require('form-data');
-var fs = require('fs');
 
 const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;

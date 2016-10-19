@@ -1,3 +1,6 @@
+import fetch from 'node-fetch';
+import fs from 'fs';
+import FormData from 'form-data';
 import getNewestFile from './getNewestFile';
 import {getAuth} from './auth';
 
