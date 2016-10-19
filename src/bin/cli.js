@@ -8,7 +8,6 @@ var fs = require('fs');
 const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;
 
-import {getAuth} from '../lib/auth';
 import publish from '../lib/publish';
 
 import program from 'commander';

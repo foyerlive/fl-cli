@@ -1,4 +1,5 @@
 import getNewestFile from './getNewestFile';
+import {getAuth} from './auth';
 
 const publish = async(env) => {
   console.log('Publishing Time: ' + env);
