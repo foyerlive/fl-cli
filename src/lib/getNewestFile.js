@@ -1,12 +1,14 @@
+import fs from 'fs';
+
 const getNewestFile = (dir, regexp) => {
   let newest = null;
-  let files = fs.readdirSync(dir)
+  let files = fs.readdirSync(dir);
   let one_matched = 0;
 
   for (let i = 0; i < files.length; i++) {
 
     if (regexp.test(files[i]) == false)
-      continue
+      continue;
     else if (one_matched == 0) {
       newest = files[i];
       one_matched = 1;
