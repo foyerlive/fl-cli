@@ -16,21 +16,23 @@ program
   .option('-b, --build', 'Build for production environment')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
-  .option('-p, --port [port]', 'Override the development server port', 9081)
+  .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
   .parse(process.argv);
 
 console.log('FoyerLive CLI: ' + program.version());
 
 // Port shift...
 if (program.port !== 9081)
+{
   process.env.FLDEVPORT = program.port;
+}
 
 // Get environment
 let env = process.env;
 
 // Let theme mode pass a environment variable to the webpack config...
 if (program.theme)
-  env = {...env, foyerThemeMode: true, foyerDevelopmentPort: 9082};
+  env = {...env, foyerThemeMode: true, FLDEVPORT: 9082};
 
 // Run the development environment
 if (program.start) {
