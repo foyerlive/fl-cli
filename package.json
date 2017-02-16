@@ -20,6 +20,7 @@
   "homepage": "https://github.com/foyerlive/fl-cli#readme",
   "bin": "./bin/cli.js",
   "dependencies": {
+    "babel": "^6.23.0",
     "babel-plugin-transform-async-to-generator": "^6.16.0",
     "babel-plugin-transform-regenerator": "^6.16.1",
     "cli-prompt": "^0.5.0",
@@ -39,7 +40,6 @@
   },
   "babel": {
     "presets": [
-      "es2015-loose",
       "stage-0"
     ],
     "plugins": [
