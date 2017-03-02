@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/foyerlive/fl-cli#readme",
   "bin": "./bin/cli.js",
+  "main": "lib/index.js",
   "dependencies": {
     "babel-cli": "^6.23.0",
     "babel-eslint": "^7.1.1",
