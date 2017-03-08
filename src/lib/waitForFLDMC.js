@@ -18,7 +18,7 @@ const waitForFLDMC = () => {
     timeout = setTimeout(() => {
       clearTimeout(timeout);
       clearInterval(bootInterval);
-      reject('Never got there...')
+      return reject('Never got there...')
     }, 30000);
 
     // Boot checker... (Runs every 100ms)
@@ -26,7 +26,7 @@ const waitForFLDMC = () => {
       if (window.hasOwnProperty('FoyerLiveDataManagerClientReady') && window.FoyerLiveDataManagerClientReady === true) {
         clearTimeout(timeout);
         clearInterval(bootInterval);
-        resolve(window.foyerDeviceOptions);
+        return resolve(window.foyerDeviceOptions);
       }
     }, 100);
 
