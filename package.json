@@ -5,8 +5,8 @@
   "scripts": {
     "install": "npm run build:clean && npm run build:lib && npm run build:bin",
     "build:clean": "rimraf bin",
-    "build:lib": "NODE_ENV=production babel src/lib --out-dir lib",
-    "build:bin": "NODE_ENV=production babel src/bin --out-dir bin"
+    "build:lib": "cross-env NODE_ENV=production babel src/lib --out-dir lib",
+    "build:bin": "cross-env NODE_ENV=production babel src/bin --out-dir bin"
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,7 @@
     "babel-preset-stage-0": "^6.22.0",
     "cli-prompt": "^0.6.0",
     "commander": "^2.9.0",
+    "cross-env": "^3.2.3",
     "css-loader": "^0.26.2",
     "es6-promise": "^4.0.5",
     "eslint": "^3.15.0",
