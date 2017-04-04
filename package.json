@@ -1,6 +1,6 @@
 {
   "name": "fl-cli",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "FoyerLive CLI",
   "scripts": {
     "install": "npm run build:clean && npm run build:lib && npm run build:bin",
