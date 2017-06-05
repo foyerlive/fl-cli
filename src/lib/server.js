@@ -1,12 +1,13 @@
 var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
-var config = require('./config/webpack.config.dev');
-var port = 9081;
-if (process.env.hasOwnProperty('FLDEVPORT'))
-  port = process.env.FLDEVPORT;
 
 const startServer = () => {
+  var config = require('./config/webpack.config.dev');
+  var port = 9081;
+  if (process.env.hasOwnProperty('FLDEVPORT'))
+    port = process.env.FLDEVPORT;
+
   var app = express();
   var compiler = webpack(config);
 

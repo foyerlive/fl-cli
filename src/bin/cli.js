@@ -6,7 +6,7 @@ const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
-var packageContents = fs.readFileSync('./package.json', 'utf8');
+var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
 import publish from '../lib/publish';

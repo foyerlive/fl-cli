@@ -24,7 +24,7 @@ var exec = require('child_process').execSync;
 var execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
-var packageContents = fs.readFileSync('./package.json', 'utf8');
+var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
 _commander2.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js').parse(process.argv);
