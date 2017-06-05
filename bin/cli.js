@@ -43,11 +43,18 @@ if (_commander2.default.theme) {
 
 // Run the development environment
 if (_commander2.default.start) {
-  var serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
-  execFile(serverPath, [], {
-    stdio: 'inherit',
-    env: env
-  });
+  try {
+    var serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
+    console.log('Server Path: ' + serverPath);
+    execFile(serverPath, [], {
+      stdio: 'inherit',
+      env: env
+    });
+  } catch (err) {
+    console.log('Failed');
+    console.log('Error:');
+    console.log(err);
+  }
 }
 
 // Run the build...

@@ -42,11 +42,18 @@ if (program.theme) {
 
 // Run the development environment
 if (program.start) {
-  let serverPath = path.join( path.resolve('./' ), path.normalize('./node_modules/fl-cli/lib/devServer.js') );
-  execFile(serverPath, [], {
-    stdio: 'inherit',
-    env: env
-  });
+  try {
+    let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
+    console.log('Server Path: ' + serverPath);
+    execFile(serverPath, [], {
+      stdio: 'inherit',
+      env: env
+    });
+  } catch (err) {
+    console.log('Failed');
+    console.log('Error:');
+    console.log(err);
+  }
 }
 
 // Run the build...
