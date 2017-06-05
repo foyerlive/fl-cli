@@ -42,7 +42,7 @@ var env = process.env;
 // Let theme mode pass a environment variable to the webpack config...
 if (_commander2.default.theme) {
   console.log('Theme mode enabled...');
-  env = _extends({}, env, { foyerThemeMode: true, FLDEVPORT: 9082 });
+  env = _extends({}, env, { FLDEVTHEME: true, FLDEVPORT: 9082 });
 }
 
 // Run the development environment
