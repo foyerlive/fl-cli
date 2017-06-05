@@ -7,6 +7,10 @@ var _publish = require('../lib/publish');
 
 var _publish2 = _interopRequireDefault(_publish);
 
+var _server = require('../lib/server');
+
+var _server2 = _interopRequireDefault(_server);
+
 var _commander = require('commander');
 
 var _commander2 = _interopRequireDefault(_commander);
@@ -20,7 +24,7 @@ var exec = require('child_process').execSync;
 var execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
-var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
+var packageContents = fs.readFileSync('./package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
 _commander2.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js').parse(process.argv);
@@ -43,8 +47,9 @@ if (_commander2.default.theme) {
 
 // Run the development environment
 if (_commander2.default.start) {
-  try {
-    var serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
+  (0, _server2.default)();
+  /*try {
+    let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
     console.log('Server Path: ' + serverPath);
     execFile(serverPath, [], {
       stdio: 'inherit',
@@ -54,7 +59,7 @@ if (_commander2.default.start) {
     console.log('Failed');
     console.log('Error:');
     console.log(err);
-  }
+  }*/
 }
 
 // Run the build...

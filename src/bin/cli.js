@@ -6,10 +6,11 @@ const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
-var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
+var packageContents = fs.readFileSync('./package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
 import publish from '../lib/publish';
+import server from '../lib/server';
 
 import program from 'commander';
 
@@ -42,7 +43,8 @@ if (program.theme) {
 
 // Run the development environment
 if (program.start) {
-  try {
+  server();
+  /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
     console.log('Server Path: ' + serverPath);
     execFile(serverPath, [], {
@@ -53,7 +55,7 @@ if (program.start) {
     console.log('Failed');
     console.log('Error:');
     console.log(err);
-  }
+  }*/
 }
 
 // Run the build...
