@@ -1,6 +1,7 @@
 #!/usr/bin/env babel-node
 require('es6-promise').polyfill();
 
+var path = require('path');
 const exec = require('child_process').execSync;
 const execFile = require('child_process').execFileSync;
 
@@ -41,7 +42,8 @@ if (program.theme) {
 
 // Run the development environment
 if (program.start) {
-  execFile('./node_modules/fl-cli/lib/devServer.js', [], {
+  let serverPath = path.join( path.resolve('./' ), path.normalize('./node_modules/fl-cli/lib/devServer.js') );
+  execFile(serverPath, [], {
     stdio: 'inherit',
     env: env
   });

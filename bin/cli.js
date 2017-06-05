@@ -15,6 +15,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 require('es6-promise').polyfill();
 
+var path = require('path');
 var exec = require('child_process').execSync;
 var execFile = require('child_process').execFileSync;
 
@@ -42,7 +43,8 @@ if (_commander2.default.theme) {
 
 // Run the development environment
 if (_commander2.default.start) {
-  execFile('./node_modules/fl-cli/lib/devServer.js', [], {
+  var serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
+  execFile(serverPath, [], {
     stdio: 'inherit',
     env: env
   });
