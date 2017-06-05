@@ -1,8 +1,6 @@
 #!/usr/bin/env babel-node
 'use strict';
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _publish = require('../lib/publish');
 
 var _publish2 = _interopRequireDefault(_publish);
@@ -42,7 +40,7 @@ var env = process.env;
 // Let theme mode pass a environment variable to the webpack config...
 if (_commander2.default.theme) {
   console.log('Theme mode enabled...');
-  env = _extends({}, env, { FLDEVTHEME: true, FLDEVPORT: 9082 });
+  process.env.FLDEVTHEME = true;
 }
 
 // Run the development environment
