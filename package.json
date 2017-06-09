@@ -3,6 +3,7 @@
   "version": "1.1.2",
   "description": "FoyerLive CLI",
   "scripts": {
+    "install": "npm run build:lib",
     "install:local": "npm run build:clean && npm run build:lib && npm run build:bin",
     "build:clean": "rimraf bin",
     "build:lib": "cross-env NODE_ENV=production babel src/lib --out-dir lib",
