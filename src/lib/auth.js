@@ -50,6 +50,9 @@ const sendAuth = async(prompt, env = '') => {
     case 'local':
       host = 'http://internal.foyerlive.com:9030/api/auth';
       break;
+    case 'stage':
+      host = 'https://stage.foyerlive.com/api/app/publish';
+      break;
     case 'test':
       host = 'https://staging.foyerlive.com/api/auth';
       break;
