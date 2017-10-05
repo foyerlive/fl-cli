@@ -2,8 +2,14 @@ var path = require('path');
 var express = require('express');
 var webpack = require('webpack');
 
-const startServer = () => {
-  var config = require('./config/webpack.config.dev');
+const startServer = (options) => {
+  var config;
+  console.log('PATH', path.resolve(__dirname, './config/webpack.config.dev'));
+  if (options && options.hasOwnProperty('config') && options.config)
+    config = require(path.resolve(process.cwd(), options.config));
+  else
+    config = require(path.resolve(__dirname, './config/webpack.config.dev'));
+
   var port = 9081;
   if (process.env.hasOwnProperty('FLDEVPORT'))
     port = process.env.FLDEVPORT;

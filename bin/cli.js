@@ -45,7 +45,9 @@ if (_commander2.default.theme) {
 
 // Run the development environment
 if (_commander2.default.start) {
-  (0, _server2.default)();
+  (0, _server2.default)({
+    config: _commander2.default.config
+  });
   /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
     console.log('Server Path: ' + serverPath);

@@ -43,7 +43,9 @@ if (program.theme) {
 
 // Run the development environment
 if (program.start) {
-  server();
+  server({
+    config: program.config
+  });
   /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
     console.log('Server Path: ' + serverPath);
