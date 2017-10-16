@@ -27,7 +27,6 @@ program
   .parse(process.argv);
 
 console.log('FoyerLive CLI: ' + program.version() + ' - ENV ' + process.env);
-console.log(process.env);
 
 // Port shift...
 if (program.port !== 9081) {
