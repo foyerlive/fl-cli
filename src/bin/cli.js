@@ -15,17 +15,19 @@ import server from '../lib/server';
 import program from 'commander';
 
 program
-.version(packageObject.version)
-.option('-s, --start', 'Start developer environment')
-.option('-t, --theme', 'Theme developer mode')
-.option('-b, --build', 'Build for production environment', false)
-.option('-p, --publish', 'Publish application')
-.option('-e, --env [env]', 'Environment override', 'prod')
-.option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
-.option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js')
-.parse(process.argv);
+  .version(packageObject.version)
+  .option('-s, --start', 'Start developer environment')
+  .option('-t, --theme', 'Theme developer mode')
+  .option('-b, --build', 'Build for production environment', false)
+  .option('-p, --publish', 'Publish application')
+  .option('-e, --env [env]', 'Environment override', 'prod')
+  .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
+  .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js')
+  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js')
+  .parse(process.argv);
 
-console.log('FoyerLive CLI: ' + program.version());
+console.log('FoyerLive CLI: ' + program.version() + ' - ENV ' + process.env);
+console.log(process.env);
 
 // Port shift...
 if (program.port !== 9081) {
@@ -44,7 +46,7 @@ if (program.theme) {
 // Run the development environment
 if (program.start) {
   server({
-    config: program.config
+    config: program.devconfig
   });
   /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));

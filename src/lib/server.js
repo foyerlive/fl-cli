@@ -4,7 +4,6 @@ var webpack = require('webpack');
 
 const startServer = (options) => {
   var config;
-  console.log('PATH', path.resolve(__dirname, './config/webpack.config.dev'));
   if (options && options.hasOwnProperty('config') && options.config)
     config = require(path.resolve(process.cwd(), options.config));
   else

@@ -25,9 +25,10 @@ var fs = require('fs');
 var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
-_commander2.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js').parse(process.argv);
+_commander2.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js').option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js').parse(process.argv);
 
-console.log('FoyerLive CLI: ' + _commander2.default.version());
+console.log('FoyerLive CLI: ' + _commander2.default.version() + ' - ENV ' + process.env);
+console.log(process.env);
 
 // Port shift...
 if (_commander2.default.port !== 9081) {
@@ -46,7 +47,7 @@ if (_commander2.default.theme) {
 // Run the development environment
 if (_commander2.default.start) {
   (0, _server2.default)({
-    config: _commander2.default.config
+    config: _commander2.default.devconfig
   });
   /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
