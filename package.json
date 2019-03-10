@@ -53,9 +53,12 @@
     "sass-loader": "^6.0.7",
     "style-loader": "^0.16.1",
     "url-loader": "^0.5.9",
-    "webpack": "^2.7.0",
+    "webpack": "^4.29.6",
     "webpack-dev-middleware": "^1.12.2",
     "webpack-hot-middleware": "^2.24.3"
+  },
+  "peerDependencies": {
+    "babel-polyfill": "^6.26.0"
   },
   "babel": {
     "presets": [

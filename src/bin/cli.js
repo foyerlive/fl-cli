@@ -45,7 +45,7 @@ if (program.theme) {
 // Run the development environment
 if (program.start) {
   server({
-    config: program.devconfig
+    config: program.devconfig,
   });
   /*try {
     let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
@@ -63,20 +63,20 @@ if (program.start) {
 
 // Run the build...
 if (program.build) {
-  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
-    stdio: 'inherit'
+  exec('./node_modules/.bin/rimraf dist', {
+    stdio: 'inherit',
   });
   console.log('Build config:', program.config);
   console.log('Memory: 4096');
   exec('NODE_ENV=production node --max_old_space_size=4096 ./node_modules/.bin/webpack --config ' + program.config, {
     stdio: 'inherit',
-    env: env
+    env: env,
   });
 }
 
 // Run a publish...
 if (program.publish) {
-  publish(program.env).catch((err) => {
+  publish(program.env).catch(err => {
     console.error(err);
   });
 }
