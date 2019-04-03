@@ -20,6 +20,7 @@ program
   .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment', false)
   .option('-pn, --packageName [name]', 'Override the package name')
+  .option('-pv, --packageVariation [name]', 'Provide a package variation')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
@@ -47,6 +48,12 @@ if (program.theme) {
 if (program.packageName) {
   process.env.PACKAGENAME = program.packageName;
   console.log('Setting package name to:', program.packageName);
+}
+
+// If we are overriding the package variation, lets plug that into the environment now...
+if (program.packageVariation) {
+  process.env.PACKAGEVARIATION = program.packageVariation;
+  console.log('Setting package variation to:', program.packageVariation);
 }
 
 // Run the development environment
