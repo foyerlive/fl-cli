@@ -19,7 +19,7 @@ program
   .option('-s, --start', 'Start developer environment')
   .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment', false)
-  .option('-pn, --packageName', 'Override the package name')
+  .option('-pn, --packageName [name]', 'Override the package name')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
