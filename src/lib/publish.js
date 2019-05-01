@@ -3,6 +3,7 @@ import fs from 'fs';
 import FormData from 'form-data';
 import getNewestFile from './getNewestFile';
 import { getAuth } from './auth';
+import _ from 'lodash';
 
 const publish = async env => {
   console.log('Publishing Time: ' + env);
@@ -23,7 +24,16 @@ const publish = async env => {
   var fileContents = fs.readFileSync(file, 'utf8');
 
   var form = new FormData();
-  form.append('app', packageObject.name);
+
+  // Support additional build variation flag...
+  let packageName = _.get(process, 'env.PACKAGENAME', 'default');
+  if (packageName !== 'default') {
+    console.log('Package Name Override:', packageName);
+    form.append('app', packageName);
+  } else {
+    form.append('app', packageObject.name);
+  }
+
   form.append('filename', file.substring(7));
   form.append('file', fileContents);
   var headers = {

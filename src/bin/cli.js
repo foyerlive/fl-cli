@@ -19,6 +19,8 @@ program
   .option('-s, --start', 'Start developer environment')
   .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment', false)
+  .option('-pn, --packageName [name]', 'Override the package name')
+  .option('-pv, --packageVariation [name]', 'Provide a package variation')
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
@@ -42,6 +44,18 @@ if (program.theme) {
   process.env.FLDEVTHEME = true;
 }
 
+// If we are overriding the package name, lets plug that into the environment now...
+if (program.packageName) {
+  process.env.PACKAGENAME = program.packageName;
+  console.log('Setting package name to:', program.packageName);
+}
+
+// If we are overriding the package variation, lets plug that into the environment now...
+if (program.packageVariation) {
+  process.env.PACKAGEVARIATION = program.packageVariation;
+  console.log('Setting package variation to:', program.packageVariation);
+}
+
 // Run the development environment
 if (program.start) {
   server({
@@ -63,11 +77,10 @@ if (program.start) {
 
 // Run the build...
 if (program.build) {
-  exec('./node_modules/.bin/rimraf dist', {
+  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
     stdio: 'inherit',
   });
   console.log('Build config:', program.config);
-  console.log('Memory: 4096');
   exec('NODE_ENV=production node --max_old_space_size=4096 ./node_modules/.bin/webpack --config ' + program.config, {
     stdio: 'inherit',
     env: env,
