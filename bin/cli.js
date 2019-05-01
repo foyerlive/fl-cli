@@ -76,7 +76,7 @@ if (_commander2.default.start) {
 
 // Run the build...
 if (_commander2.default.build) {
-  exec('./node_modules/.bin/rimraf dist', {
+  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
     stdio: 'inherit'
   });
   console.log('Build config:', _commander2.default.config);
