@@ -3,13 +3,17 @@
   "version": "1.2.6",
   "description": "FoyerLive CLI",
   "scripts": {
+    "postinstall:husky": "node node_modules/husky/lib/installer/bin install",
     "install": "npm run build:lib",
     "install:local": "npm run build:clean && npm run build:lib && npm run build:bin",
     "build:clean": "rimraf bin",
     "build:lib": "cross-env NODE_ENV=production babel src/lib --out-dir lib",
     "build:bin": "cross-env NODE_ENV=production babel src/bin --out-dir bin",
     "start:lib": "NODE_ENV=production babel --watch src/lib --out-dir lib",
-    "start:bin": "NODE_ENV=production babel --watch src/bin --out-dir bin"
+    "start:bin": "NODE_ENV=production babel --watch src/bin --out-dir bin",
+    "release": "semantic-release --no-ci",
+    "commit": "git-cz",
+    "cz": "git-cz"
   },
   "repository": {
     "type": "git",
@@ -65,5 +69,20 @@
     "plugins": [
       "transform-async-to-generator"
     ]
+  },
+  "devDependencies": {
+    "@foyer/commitizen-config": "^1.0.0",
+    "commitizen": "^4.0.3",
+    "cz-customizable": "^6.2.0",
+    "cz-customizable-ghooks": "git+https://github.com/pramod-ie/cz-customizable-ghooks.git#master",
+    "husky": "^3.0.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    },
+    "cz-customizable": {
+      "config": "node_modules/@foyer/commitizen-config"
+    }
   }
 }
