@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/foyerlive/fl-cli/compare/ts-v1.0.0...ts-v1.0.1) (2019-11-20)
+
+
+### Bug Fixes
+
+* **changelog:** update changelog of all orevious commits ([fd82c3f](https://github.com/foyerlive/fl-cli/commit/fd82c3f4c218d721b01394f07ba09fc6a76317e3))
+
 # 1.0.0 (2019-11-20)
 
 
