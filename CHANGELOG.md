@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/foyerlive/fl-cli/compare/ts-v1.0.1...ts-v1.0.2) (2019-11-25)
+
+
+### Bug Fixes
+
+* **config:** update webpack config to use update babel config ([ca8dec1](https://github.com/foyerlive/fl-cli/commit/ca8dec121631e886324e256cc8e34e13c448a9ea))
+
 ## [1.0.1](https://github.com/foyerlive/fl-cli/compare/ts-v1.0.0...ts-v1.0.1) (2019-11-20)
 
 
