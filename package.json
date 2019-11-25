@@ -1,6 +1,6 @@
 {
   "name": "fl-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "FoyerLive CLI",
   "scripts": {
     "postinstall:husky": "node node_modules/husky/lib/installer/bin install",

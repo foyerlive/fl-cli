@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/foyerlive/fl-cli/compare/ts-v1.0.2...ts-v1.0.3) (2019-11-25)
+
+
+### Bug Fixes
+
+* **config:** fix webpacj config and add required dependency ([4be0981](https://github.com/foyerlive/fl-cli/commit/4be0981da8a1b9e906b6a52074880cf41f9f9079))
+
 ## [1.0.2](https://github.com/foyerlive/fl-cli/compare/ts-v1.0.1...ts-v1.0.2) (2019-11-25)
 
 
