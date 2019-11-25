@@ -77,9 +77,9 @@ if (program.start) {
 
 // Run the build...
 if (program.build) {
-  // exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
-  //   stdio: 'inherit',
-  // });
+  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
+    stdio: 'inherit',
+  });
   console.log('Build config:', program.config);
   exec('NODE_ENV=production node --max_old_space_size=4096 ./node_modules/.bin/webpack --config ' + program.config, {
     stdio: 'inherit',
