@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/foyerlive/fl-cli/compare/es-v1.0.0...es-v1.0.1) (2020-02-05)
+
+
+### Bug Fixes
+
+* **babelDependecy:** remove `jsx-control-statements` to remove duplicate dependencies ([10ccd26](https://github.com/foyerlive/fl-cli/commit/10ccd266c00bbba65faa3dcfa28b6419a33bfa64))
+
 # 1.0.0 (2019-11-25)
 
 
