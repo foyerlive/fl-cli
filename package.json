@@ -4,8 +4,6 @@
   "description": "FoyerLive CLI",
   "scripts": {
     "postinstall:husky": "node node_modules/husky/lib/installer/bin install",
-    "install": "npm run build:lib",
-    "install:local": "npm run build:clean && npm run build:lib && npm run build:bin",
     "build:clean": "rimraf bin",
     "build:lib": "cross-env NODE_ENV=production babel src/lib --out-dir lib",
     "build:bin": "cross-env NODE_ENV=production babel src/bin --out-dir bin",
