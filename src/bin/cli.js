@@ -24,8 +24,8 @@ program
   .option('-p, --publish', 'Publish application')
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
-  .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/config/webpack.config.prod.js')
-  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js')
+  .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js')
+  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js')
   .parse(process.argv);
 
 console.log('FoyerLive CLI: ' + program.version() + ' - ENV ' + process.env);
