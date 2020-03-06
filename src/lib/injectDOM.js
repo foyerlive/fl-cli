@@ -1,10 +1,13 @@
-export default function injectDOM(description = 'div',parentNode = null) {
+export default (description = 'div', parentNode = null) => {
   const [type, classNames] = description.split('.');
   const node = document.createElement(type);
-  if (classNames) node.className = classNames;
-  if( parentNode == null )
+  if (classNames) {
+    node.className = classNames;
+  }
+  if (parentNode == null) {
     document.body.appendChild(node);
-  else
+  } else {
     parentNode.appendChild(node);
+  }
   return node;
-}
+};

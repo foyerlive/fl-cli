@@ -1,9 +1,9 @@
-#!/usr/bin/env babel-node
+#!/usr/bin/env node
 require('es6-promise').polyfill();
 
-var path = require('path');
+// var path = require('path');
 const exec = require('child_process').execSync;
-const execFile = require('child_process').execFileSync;
+// const execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
 var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
@@ -25,10 +25,11 @@ program
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
   .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js')
-  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js')
+  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js')
+  .option('-n, --next-gen', 'Next gen building', true)
   .parse(process.argv);
 
-console.log('FoyerLive CLI: ' + program.version() + ' - ENV ' + process.env);
+console.log('Foyer Compiler: ' + program.version());
 
 // Port shift...
 if (program.port !== 9081) {
@@ -37,6 +38,9 @@ if (program.port !== 9081) {
 
 // Get environment
 let env = process.env;
+
+// Next-gen support
+const devConfig = program.nextGen ? './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js' : './node_modules/fl-cli/lib/webpack.config.dev.js';
 
 // Let theme mode pass a environment variable to the webpack config...
 if (program.theme) {
@@ -59,20 +63,9 @@ if (program.packageVariation) {
 // Run the development environment
 if (program.start) {
   server({
-    config: program.devconfig,
+    config: devConfig,
+    nextGen: program.nextGen,
   });
-  /*try {
-    let serverPath = path.join(path.resolve('./'), path.normalize('./node_modules/fl-cli/lib/devServer.js'));
-    console.log('Server Path: ' + serverPath);
-    execFile(serverPath, [], {
-      stdio: 'inherit',
-      env: env
-    });
-  } catch (err) {
-    console.log('Failed');
-    console.log('Error:');
-    console.log(err);
-  }*/
 }
 
 // Run the build...
