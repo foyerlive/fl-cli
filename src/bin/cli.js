@@ -11,6 +11,9 @@ var packageObject = JSON.parse(packageContents);
 
 import publish from '../lib/publish';
 import server from '../lib/server';
+import debug from 'debug';
+debug.enable('foyer*');
+const d = debug('foyer');
 
 import program from 'commander';
 
@@ -19,6 +22,8 @@ program
   .option('-s, --start', 'Start developer environment')
   .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment', false)
+  .option('-a, --analyze', 'Analyze the build', false)
+  .option('-bv, --buildVersion', 'Add build number to the version', false)
   .option('-pn, --packageName [name]', 'Override the package name')
   .option('-pv, --packageVariation [name]', 'Provide a package variation')
   .option('-p, --publish', 'Publish application')
@@ -29,7 +34,12 @@ program
   .option('-n, --next-gen', 'Next gen building', true)
   .parse(process.argv);
 
-console.log('Foyer Compiler: ' + program.version());
+console.log('   _____                 ');
+console.log('  |   __|___ _ _ ___ ___ ');
+console.log('  |   __| . | | | -_|  _|');
+console.log('  |__|  |___|_  |___|_|  ');
+console.log('            |___|        ');
+console.log('');
 
 // Port shift...
 if (program.port !== 9081) {
@@ -46,6 +56,16 @@ const devConfig = program.nextGen ? './node_modules/fl-cli/lib/configs/webpack/w
 if (program.theme) {
   console.log('Theme mode enabled...');
   process.env.FLDEVTHEME = true;
+}
+
+// Are we analyzing?
+if (program.analyze) {
+  process.env.WEBPACK_ANALYZE = true;
+}
+
+// Are we adding a build version?
+if (program.buildVersion) {
+  process.env.WEBPACK_ADD_BUILD_VERSION = true;
 }
 
 // If we are overriding the package name, lets plug that into the environment now...
