@@ -9,7 +9,7 @@
     "build:bin": "cross-env NODE_ENV=production babel src/bin --out-dir bin",
     "start:lib": "NODE_ENV=production babel --watch src/lib --out-dir lib",
     "start:bin": "NODE_ENV=production babel --watch src/bin --out-dir bin",
-    "release": "semantic-release --no-ci --tag-format es-v\\${version}",
+    "release": "semantic-release --no-ci --tag-format v\\${version}",
     "commit": "git-cz",
     "cz": "git-cz"
   },
