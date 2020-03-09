@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 require('es6-promise').polyfill();
 
-// var path = require('path');
+const internalIp = require('internal-ip');
 const exec = require('child_process').execSync;
-// const execFile = require('child_process').execFileSync;
 
 var fs = require('fs');
 var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
@@ -20,6 +19,7 @@ import program from 'commander';
 program
   .version(packageObject.version)
   .option('-s, --start', 'Start developer environment')
+  .option('-r, --remote', 'Run dev-server on local IP', false)
   .option('-t, --theme', 'Theme developer mode')
   .option('-b, --build', 'Build for production environment', false)
   .option('-a, --analyze', 'Analyze the build', false)
@@ -44,6 +44,11 @@ console.log('');
 // Port shift...
 if (program.port !== 9081) {
   process.env.FLDEVPORT = program.port;
+}
+
+// Remote dev-server
+if (program.remote) {
+  process.env.FLDEVHOST = internalIp.v4.sync();
 }
 
 // Get environment
