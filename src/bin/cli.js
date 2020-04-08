@@ -107,7 +107,7 @@ if (program.build) {
 
 // Run a publish...
 if (program.publish) {
-  publish(program.env).catch(err => {
+  publish(program.env).catch((err) => {
     console.error(err);
   });
 }
