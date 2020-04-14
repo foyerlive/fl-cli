@@ -26,7 +26,7 @@ _debug.default.enable('foyer*');
 
 const d = (0, _debug.default)('foyer');
 
-_commander.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-r, --remote', 'Run dev-server on local IP', false).option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-a, --analyze', 'Analyze the build', false).option('-bv, --buildVersion', 'Add build number to the version', false).option('-pn, --packageName [name]', 'Override the package name').option('-pv, --packageVariation [name]', 'Provide a package variation').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js').option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js').option('-n, --next-gen', 'Next gen building', true).parse(process.argv);
+_commander.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-r, --remote', 'Run dev-server on local IP', false).option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-a, --analyze', 'Analyze the build', false).option('-bv, --buildVersion', 'Add build number to the version', false).option('-pn, --packageName [name]', 'Override the package name').option('-pv, --packageVariation [name]', 'Provide a package variation').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js').option('-d, --devconfig [config]', 'Override the dev config', false).option('-n, --next-gen', 'Next gen building', true).parse(process.argv);
 
 console.log('   _____                 ');
 console.log('  |   __|___ _ _ ___ ___ ');
@@ -46,8 +46,7 @@ if (_commander.default.remote) {
 
 
 let env = process.env; // Next-gen support
-
-const devConfig = _commander.default.nextGen ? './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js' : './node_modules/fl-cli/lib/webpack.config.dev.js'; // Let theme mode pass a environment variable to the webpack config...
+// Let theme mode pass a environment variable to the webpack config...
 
 if (_commander.default.theme) {
   console.log('Theme mode enabled...');
@@ -78,8 +77,9 @@ if (_commander.default.packageVariation) {
 
 
 if (_commander.default.start) {
+  console.log('Dev config:', _commander.default.devconfig);
   (0, _server.default)({
-    config: devConfig,
+    config: _commander.default.devconfig,
     nextGen: _commander.default.nextGen
   });
 } // Run the build...

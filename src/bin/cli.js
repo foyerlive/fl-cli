@@ -30,7 +30,7 @@ program
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
   .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js')
-  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/config/webpack.config.dev.js')
+  .option('-d, --devconfig [config]', 'Override the dev config', false)
   .option('-n, --next-gen', 'Next gen building', true)
   .parse(process.argv);
 
@@ -55,7 +55,6 @@ if (program.remote) {
 let env = process.env;
 
 // Next-gen support
-const devConfig = program.nextGen ? './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js' : './node_modules/fl-cli/lib/webpack.config.dev.js';
 
 // Let theme mode pass a environment variable to the webpack config...
 if (program.theme) {
@@ -87,8 +86,9 @@ if (program.packageVariation) {
 
 // Run the development environment
 if (program.start) {
+  console.log('Dev config:', program.devconfig);
   server({
-    config: devConfig,
+    config: program.devconfig,
     nextGen: program.nextGen,
   });
 }
