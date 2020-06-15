@@ -30,7 +30,7 @@ program
   .option('-e, --env [env]', 'Environment override', 'prod')
   .option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081)
   .option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js')
-  .option('-d, --devconfig [config]', 'Override the dev config', false)
+  .option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js')
   .option('-n, --next-gen', 'Next gen building', true)
   .parse(process.argv);
 
