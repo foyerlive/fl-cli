@@ -24,6 +24,7 @@ program
   .option('-b, --build', 'Build for production environment', false)
   .option('-a, --analyze', 'Analyze the build', false)
   .option('-bv, --buildVersion', 'Add build number to the version', false)
+  .option('-nm, --noMinimize', 'Do not minimize the build', false)
   .option('-pn, --packageName [name]', 'Override the package name')
   .option('-pv, --packageVariation [name]', 'Provide a package variation')
   .option('-p, --publish', 'Publish application')
@@ -70,6 +71,12 @@ if (program.analyze) {
 // Are we adding a build version?
 if (program.buildVersion) {
   process.env.WEBPACK_ADD_BUILD_VERSION = true;
+}
+
+// Are we ignoring minimization?
+if (program.noMinimize) {
+  console.log('Will not minimize');
+  process.env.WEBPACK_NO_MINIMIZE = true;
 }
 
 // If we are overriding the package name, lets plug that into the environment now...

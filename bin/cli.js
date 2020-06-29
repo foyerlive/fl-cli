@@ -26,7 +26,7 @@ _debug.default.enable('foyer*');
 
 const d = (0, _debug.default)('foyer');
 
-_commander.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-r, --remote', 'Run dev-server on local IP', false).option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-a, --analyze', 'Analyze the build', false).option('-bv, --buildVersion', 'Add build number to the version', false).option('-pn, --packageName [name]', 'Override the package name').option('-pv, --packageVariation [name]', 'Provide a package variation').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js').option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js').option('-n, --next-gen', 'Next gen building', true).parse(process.argv);
+_commander.default.version(packageObject.version).option('-s, --start', 'Start developer environment').option('-r, --remote', 'Run dev-server on local IP', false).option('-t, --theme', 'Theme developer mode').option('-b, --build', 'Build for production environment', false).option('-a, --analyze', 'Analyze the build', false).option('-bv, --buildVersion', 'Add build number to the version', false).option('-nm, --noMinimize', 'Do not minimize the build', false).option('-pn, --packageName [name]', 'Override the package name').option('-pv, --packageVariation [name]', 'Provide a package variation').option('-p, --publish', 'Publish application').option('-e, --env [env]', 'Environment override', 'prod').option('-p, --port [port]', 'Override the development server port (Not available for themes)', 9081).option('-c, --config [config]', 'Override the build config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.prod.js').option('-d, --devconfig [config]', 'Override the dev config', './node_modules/fl-cli/lib/configs/webpack/webpack.config.dev.js').option('-n, --next-gen', 'Next gen building', true).parse(process.argv);
 
 console.log('   _____                 ');
 console.log('  |   __|___ _ _ ___ ___ ');
@@ -61,6 +61,12 @@ if (_commander.default.analyze) {
 
 if (_commander.default.buildVersion) {
   process.env.WEBPACK_ADD_BUILD_VERSION = true;
+} // Are we ignoring minimization?
+
+
+if (_commander.default.noMinimize) {
+  console.log('Will not minimize');
+  process.env.WEBPACK_NO_MINIMIZE = true;
 } // If we are overriding the package name, lets plug that into the environment now...
 
 
