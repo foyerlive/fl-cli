@@ -5,8 +5,11 @@ const internalIp = require('internal-ip');
 const exec = require('child_process').execSync;
 
 var fs = require('fs');
+var path = require('path');
+
 var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
+
 
 import publish from '../lib/publish';
 import server from '../lib/server';
@@ -102,11 +105,11 @@ if (program.start) {
 
 // Run the build...
 if (program.build) {
-  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
+  exec(`${path.normalize('./node_modules/.bin/eslint')} ${path.normalize('src/')} && ${path.normalize('./node_modules/.bin/rimraf')} dist`, {
     stdio: 'inherit',
   });
   console.log('Build config:', program.config);
-  exec('NODE_ENV=production node --max_old_space_size=4096 ./node_modules/.bin/webpack --config ' + program.config, {
+  exec(`NODE_ENV=production node --max_old_space_size=4096 ${path.normalize('./node_modules/.bin/webpack')} --config ` + program.config, {
     stdio: 'inherit',
     env: env,
   });
