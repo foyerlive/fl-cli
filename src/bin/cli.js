@@ -81,7 +81,9 @@ if (program.build) {
     stdio: 'inherit',
   });
   console.log('Build config:', program.config);
-  exec(`NODE_ENV=production node --max_old_space_size=4096 ${path.normalize('./node_modules/.bin/webpack')} --config ` + program.config, {
+  const webpackExe = path.normalize('./node_modules/.bin/webpack');
+  const configPath = path.normalize(program.config);
+  exec(`NODE_ENV=production node --max_old_space_size=4096 ${webpackExe} --config ${configPath}`, {
     stdio: 'inherit',
     env: env,
   });
