@@ -19,6 +19,8 @@ const exec = require('child_process').execSync;
 
 var fs = require('fs');
 
+var path = require('path');
+
 var packageContents = fs.readFileSync('./node_modules/fl-cli/package.json', 'utf8');
 var packageObject = JSON.parse(packageContents);
 
@@ -92,11 +94,13 @@ if (_commander.default.start) {
 
 
 if (_commander.default.build) {
-  exec('./node_modules/.bin/eslint src/ && ./node_modules/.bin/rimraf dist', {
+  exec(`${path.normalize('./node_modules/.bin/eslint')} ${path.normalize('src/')} && ${path.normalize('./node_modules/.bin/rimraf')} dist`, {
     stdio: 'inherit'
   });
   console.log('Build config:', _commander.default.config);
-  exec('NODE_ENV=production node --max_old_space_size=4096 ./node_modules/.bin/webpack --config ' + _commander.default.config, {
+  const webpackExe = path.normalize('./node_modules/webpack/bin/webpack');
+  const configPath = path.normalize(_commander.default.config);
+  exec(`NODE_ENV=production node --max_old_space_size=4096 ${webpackExe} --config ${configPath}`, {
     stdio: 'inherit',
     env: env
   });
