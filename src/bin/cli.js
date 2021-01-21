@@ -98,7 +98,7 @@ if (program.packageVariation) {
 if (program.start) {
   console.log('Dev config:', program.devconfig);
   server({
-    config: program.devconfig,
+    config: path.normalize(program.devconfig),
     nextGen: program.nextGen,
   });
 }
