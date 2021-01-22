@@ -87,7 +87,7 @@ if (_commander.default.packageVariation) {
 if (_commander.default.start) {
   console.log('Dev config:', _commander.default.devconfig);
   (0, _server.default)({
-    config: _commander.default.devconfig,
+    config: path.normalize(_commander.default.devconfig),
     nextGen: _commander.default.nextGen
   });
 } // Run the build...
