@@ -50,7 +50,7 @@
     "file-loader": "^4.2.0",
     "form-data": "^3.0.0",
     "node-fetch": "^2.6.0",
-    "node-sass": "^4.13.0",
+    "node-sass": "^7.0.0",
     "path": "^0.12.7",
     "postcss-loader": "^3.0.0",
     "react-hot-loader": "^4.12.18",
